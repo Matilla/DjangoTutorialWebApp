@@ -1,0 +1,15 @@
+{% if latest_question_list %}
+    <ul>
+    {% for question in latest_question_list %}
+    	<!-- Hardcoded reference to /polls/... bad idea because it's difficult to change when there are many templates -->
+       <!--  <li><a href="/polls/{{ question.id }}/">{{ question.question_text }}</a></li> --> 
+       <!-- More elegant solution using url template tag in the polls.urls we have the argument name defined as 'detail' so we can use it here to reference the URLs without hardcoding anything.
+       		  If we want to change the URL for detail we can do it in polls/urls.py instead of in the HTML template, better decoupling -->
+        <!-- Same line as 10, but without 'polls:' in 'polls:detail' -->
+        <!-- Included the namespace for URLs in the polls application -->
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
